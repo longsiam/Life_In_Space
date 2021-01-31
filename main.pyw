@@ -2,10 +2,12 @@
 # version: BETA_00
 
 import pygame
+import setting
+import funclib
 
 def main():
 	'''游戏主函数'''
-	pass # 先占着
+	sets=setting()
 
 if __name__ == '__main__':
 	main()
