@@ -12,8 +12,11 @@
 4. 创建setting.py
 	- 创建setting类
 
-### 2021/2/1 16:43 BETA_00 (Longs)
-1.  更新funclib.py
+### 2021/2/1 18:00 BETA_00 (Longs)
+1. 更新funclib.py
 	- 更新quit_game函数（存档机制）
 	- 加入加/解密功能(encry与decry函数)
 	- 加入读/存档机制(save_file与read_file函数)
+2. 更新setting.py
+	- 加入窗口长宽设置
+	- 声明了init_dynamic函数（目前没有内容）
