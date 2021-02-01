@@ -23,7 +23,7 @@
 
 ### 2021/2/1 20:00 BETA_01 (Longs)
 1. 更新main.py
-	- 构建窗口及设置实例与datpck
+	- 构建窗口及datpck
 	- 建立游戏主循环（目前只会监听+处理事件）
 2. 更新funclib.py
 	- 加入handle_event函数（目前只会监听关闭事件）
