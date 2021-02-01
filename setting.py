@@ -1,5 +1,5 @@
 # setting datas
-# version: BETA_00
+# version: BETA
 class setting:
 	'''储存游戏设置'''
 	def __init__(self):
