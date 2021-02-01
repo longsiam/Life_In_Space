@@ -1,6 +1,6 @@
 # setting datas
 # version: BETA
-class setting:
+class Setting:
 	'''储存游戏设置'''
 	def __init__(self):
 		self.screen_width=1050 # 游戏窗口宽度
