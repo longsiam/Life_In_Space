@@ -1,5 +1,5 @@
 # main program of LifeInSpace
-# version: BETA_00
+# version: BETA
 
 import pygame
 import setting
