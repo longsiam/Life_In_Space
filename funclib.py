@@ -36,8 +36,8 @@ def save_file(datpck: dict):
 	# os.getcwd()能获取当前路径
 	# .dat文件其实就是普通的文本文件换了个后缀, player.dat是游戏存档文件
 	with open(os.getcwd()+r"\player.dat", "w") as f:
-		# 将统计信息与进度描述放入一个元组，写入存档中
-		f.write(str((datpck["stats"], datpck["progress"])))
+		# 将统计信息与进度描述放入一个元组，加密写入存档中
+		f.write(encry(str((datpck["stats"].get(), datpck["progress"]))))
 
 def read_file() -> tuple:
 	'''
@@ -45,5 +45,5 @@ def read_file() -> tuple:
 	返回值：统计信息与进度的元组
 	'''
 	with open(os.getcwd()+r"\player.dat", "r") as f:
-		# 此时读得的是字符串，我们要eval一下才是真正的元组
-		return eval(f.read())
+		# 解密后读得的仍是字符串，我们要eval一下才是真正的元组
+		return eval(decry(f.read()))
