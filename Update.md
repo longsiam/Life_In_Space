@@ -20,3 +20,11 @@
 2. 更新setting.py
 	- 加入窗口长宽设置
 	- 声明了init_dynamic函数（目前没有内容）
+
+### 2021/2/1 20:00 BETA_01 (Longs)
+1. 更新main.py
+	- 构建窗口及设置实例与datpck
+	- 建立游戏主循环（目前只会监听+处理事件）
+2. 更新funclib.py
+	- 加入handle_event函数（目前只会监听关闭事件）
+3. 加入图标data\gameicon.ico
