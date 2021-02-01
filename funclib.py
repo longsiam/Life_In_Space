@@ -1,5 +1,5 @@
 # function library of LifeInSpace
-# version: BETA_00
+# version: BETA
 import os
 import sys
 import pygame
