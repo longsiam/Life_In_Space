@@ -12,7 +12,7 @@ def run():
 	set_=Setting()  # 游戏设置
 	# 游戏窗口
 	screen=pygame.display.set_mode((set_.screen_width,set_.screen_high)) 
-	pygame.display.set_caption('域外人生') # 标题
+	pygame.display.set_caption("域外人生") # 标题
 	icon=pygame.image.load(os.getcwd()+r"\data\gameicon.ico")
 	pygame.display.set_icon(icon) # 图标
 	datpck={'screen':screen, 'set':set_}
