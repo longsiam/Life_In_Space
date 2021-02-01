@@ -35,9 +35,10 @@ def save_file(datpck: dict):
 	'''
 	# os.getcwd()能获取当前路径
 	# .dat文件其实就是普通的文本文件换了个后缀, player.dat是游戏存档文件
-	with open(os.getcwd()+r"\player.dat", "w") as f:
+	with open(os.getcwd()+r"data\player.dat", "w") as f:
 		# 将统计信息与进度描述放入一个元组，加密写入存档中
-		f.write(encry(str((datpck["stats"].get(), datpck["progress"]))))
+		# ~ f.write(encry(str((datpck["stats"].get(), datpck["progress"]))))
+		pass
 
 def read_file() -> tuple:
 	'''
@@ -47,3 +48,14 @@ def read_file() -> tuple:
 	with open(os.getcwd()+r"\player.dat", "r") as f:
 		# 解密后读得的仍是字符串，我们要eval一下才是真正的元组
 		return eval(decry(f.read()))
+
+def handle_event(datpck: dict):
+	'''
+	监听+处理事件
+	datpck: 游戏数据包
+	'''
+	for event in pygame.event.get():
+		# 监听是否按下×，按下就退出
+		if event.type == pygame.QUIT:
+			quit_game(datpck)
+
