@@ -11,3 +11,9 @@
 	- 创建quit_game函数
 4. 创建setting.py
 	- 创建setting类
+
+### 2021/2/1 16:43 BETA_00 (Longs)
+1.  更新funclib.py
+	- 更新quit_game函数（存档机制）
+	- 加入加/解密功能(encry与decry函数)
+	- 加入读/存档机制(save_file与read_file函数)
