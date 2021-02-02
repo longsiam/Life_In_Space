@@ -1,4 +1,4 @@
-# main program of LifeInSpace
+# 主程序
 # version: BETA
 
 import pygame
@@ -20,5 +20,5 @@ def run():
 	while True:
 		handle_event(datpck)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	run()
