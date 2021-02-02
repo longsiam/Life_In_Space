@@ -19,7 +19,7 @@
 	- 加入读/存档机制(save_file与read_file函数)
 2. 更新setting.py
 	- 加入窗口长宽设置
-	- 声明了init_dynamic函数（目前没有内容）
+	- 声明了init_dynamic方法（目前没有内容）
 
 ### 2021/2/1 20:00 BETA_01 (Longs)
 1. 更新main.py
@@ -28,3 +28,13 @@
 2. 更新funclib.py
 	- 加入handle_event函数（目前只会监听关闭事件）
 3. 加入图标data\gameicon.ico
+
+### 2021/2/2 14:00 BETA_02 (Longs)
+1. 更新funclib.py
+	- 加入isFirstRun函数
+2. 更新setting.py
+	- 加入get_dynamic方法, init_dynamic方法现在也有内容了
+	- 加入起始财产与血量最大值的设置
+3. 加入stats.py
+	- 加入活动状态、处决点数、血量
+	- 加入get_longterm方法
