@@ -7,7 +7,7 @@
 4. 每个文件/内容分条，每条中具体内容再分条
 5. 格式要按着上面的
 6. 当游戏能玩了，进入Omega预发布阶段，版本号沿用BETA，像如果BETA_2A进入了OMEGA版本，那第一个OMEGA版本就是OMEGA_2B
-7. 正式版版本号格式为x.x，最后一个x是用来标记小更新的（十进制）
+7. 正式版版本号格式为x.xx，最后一个x是用来标记小补丁的（十进制）
 
 ### 2021/1/31 21:05 BETA_00 (Longs)
 1. 创建main.pyw
@@ -59,3 +59,22 @@
 	- datpck加入stats键 
 	- 主循环前存档+标记
 4. 加入firstrun标记文件
+
+### 2021/2/2 21:00 BETA_04 (Longs)
+1. 加入background.py
+	- 加入BackGround类
+	- 加入StarrySky类
+	- 加入SmallStar类
+2. 加入text.py
+	- 加入Text类
+3. 更新setting.py
+	- 加入有关SmallStar的设置
+4. 更新funclib.py
+	- 加入show_start_cg函数（未完成）
+5. 更新main.py
+	- 加入起始剧情CG的入口
+
+### 2021/2/2 21:00 BETA_04 (Sans)
+1. 加入一段起始CG动画图片（未完成）
+	- 目前共4张
+
