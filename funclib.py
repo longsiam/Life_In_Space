@@ -44,7 +44,6 @@ def save_file(datpck: dict):
 				"setting":datpck["setting"].get_dynamic()
 			}
 		)))
-		pass
 
 def read_file() -> tuple:
 	'''
