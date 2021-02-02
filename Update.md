@@ -6,6 +6,8 @@
 3. 十分小的微调可以不用写进去
 4. 每个文件/内容分条，每条中具体内容再分条
 5. 格式要按着上面的
+6. 当游戏能玩了，进入Omega预发布阶段，版本号沿用BETA，像如果BETA_2A进入了OMEGA版本，那第一个OMEGA版本就是OMEGA_2B
+7. 正式版版本号格式为1.x.x，最后一个x是用来标记小更新的
 
 ### 2021/1/31 21:05 BETA_00 (Longs)
 1. 创建main.pyw
@@ -45,3 +47,15 @@
 3. 加入stats.py
 	- 加入活动状态、处决点数、血量
 	- 加入get_longterm方法
+4. 令save_file存入一个字典
+
+### 2021/2/2 14:30 BETA_03 (Longs)
+1. 更新funclib.py
+	- 改正读写文件编码为utf-8
+	- 改正isFirstRun函数（之前少了个not）
+2. 更新stats.py
+	- 改正get_longterm方法（之前参数少了个self）
+3. 更新main.py
+	- datpck加入stats键 
+	- 主循环前存档+标记
+4. 加入firstrun标记文件
