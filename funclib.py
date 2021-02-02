@@ -1,4 +1,4 @@
-# function library of LifeInSpace
+# 函数库
 # version: BETA
 import os
 import sys
@@ -18,7 +18,7 @@ def encry(target: str) -> str:
 	target: 要加密的字符串
 	返回值: 加密后的字符串
 	'''
-	return "".join(reversed([chr((ord(x)^3)+5) for x in target]))
+	return "".join(reversed([chr((ord(x)^3)+15) for x in target]))
 
 def decry(target: str) -> str:
 	'''
@@ -26,7 +26,7 @@ def decry(target: str) -> str:
 	target: 被加密的字符串
 	返回值: 解密后的字符串
 	'''
-	return "".join(reversed([chr((ord(x)-5)^3) for x in target]))
+	return "".join(reversed([chr((ord(x)-15)^3) for x in target]))
 
 def save_file(datpck: dict):
 	'''
@@ -35,9 +35,15 @@ def save_file(datpck: dict):
 	'''
 	# os.getcwd()能获取当前路径
 	# .dat文件其实就是普通的文本文件换了个后缀, player.dat是游戏存档文件
-	with open(os.getcwd()+r"data\player.dat", "w") as f:
+	with open(os.getcwd()+r"\data\player.dat", "w") as f:
 		# 将统计信息与进度描述放入一个元组，加密写入存档中
-		# ~ f.write(encry(str((datpck["stats"].get(), datpck["progress"]))))
+		f.write(encry(str(
+			{
+				"stats":datpck["stats"].get_longterm(), 
+				"progress":datpck["progress"], 
+				"setting":datpck["setting"].get_dynamic()
+			}
+		)))
 		pass
 
 def read_file() -> tuple:
@@ -59,3 +65,9 @@ def handle_event(datpck: dict):
 		if event.type == pygame.QUIT:
 			quit_game(datpck)
 
+def isFirstRun() -> bool:
+	'''
+	检查是否为第一次运行
+	返回值：是否第一次运行，是为True
+	'''
+	return os.path.exists(os.getcwd()+r'\data\player.dat')
