@@ -28,7 +28,7 @@ def run():
 			"progress":prg,
 			"screen":screen,
 			"setting":set_
-			}    
+		}    
 	datpck["stats"]=Stats(datpck)  # 统计信息
 
 	# 存档，标记已经运行过
