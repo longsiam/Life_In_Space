@@ -78,3 +78,26 @@
 1. 加入一段起始CG动画图片（未完成）
 	- 目前共4张
 
+### 2021/2/3 21:00 BETA_05 (Longs)
+1. 加入interface.py
+	- 加入interface类
+	- 加入StartCG类（目前还是空壳）
+2. 加入audio.py
+	- 加入Music类
+	- 加入Sound类
+3. 加入global_vars.py
+	- 将datpck移到这里
+	- 加入change_datpck函数
+4. 更新main.py
+	- 更改了主循环的运作方式
+	- 加入异常处理机制
+5. 更新funclib.py
+	- 补全了handle_event函数
+	- 加入goto_interface_by_progress函数
+6. 更新setting.py
+	- 加入volume与star_color这两个设置
+7. 加入tools.pyc
+8. 因为datpck已被公用到global_vars，因此传入的datpck参数均被删除
+
+### 2021/2/3 21:00 (Sans)
+1. 加入剩下的6张CG图
