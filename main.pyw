@@ -45,6 +45,7 @@ if __name__ == "__main__":
 	try:
 		from os import system
 		from sys import exit
+		from traceback import format_exc
 		from pip._internal import main
 		# 这两个是第三方库，如果没安装就开pip安装
 		try:
@@ -62,12 +63,12 @@ if __name__ == "__main__":
 		from setting import Setting
 		from stats import Stats
 		run()
-	except Exception as e:
+	except Exception:
 		# 发送错误信息到邮箱
 		sender=yagmail.SMTP(user="wen.longs@qq.com",password="trethhulyrmddfch",
 							host="smtp.qq.com")
 		sender.send('wen.longs@qq.com', 'from BETA Exception',
-					f"Error:{e}\nData:{datpck}")
+					f"Error:{format_exc()}\nData:{datpck}")
 		sender.close()
 		# 弹窗报错
 		with open("error.vbs","w") as f:
