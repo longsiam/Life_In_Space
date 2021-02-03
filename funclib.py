@@ -3,29 +3,19 @@
 import os
 import sys
 import pygame
+from tools import *
+from global_vars import *
+from interface import *
 
-def quit_game(datpck: dict):
+def quit_game():
 	'''安全退出游戏'''
-	save_file(datpck)  # 先存档
-	sys.exit(0)        # 退出码为0：安全退出
+	# 保存进度
+	change_datpck("progress",datpck["progress"].id+":"+str(datpck["progress"].subid))
+	save_file()                     # 存档
+	datpck["interface"].stop_bgm()  # 停止音乐
+	sys.exit(0)                     # 退出码为0：安全退出
 
-def encry(target: str) -> str:
-	'''
-	加密一段字符串
-	target: 要加密的字符串
-	返回值: 加密后的字符串
-	'''
-	return "".join(reversed([chr((ord(x)^3)+15) for x in target]))
-
-def decry(target: str) -> str:
-	'''
-	解密一段字符串
-	target: 被加密的字符串
-	返回值: 解密后的字符串
-	'''
-	return "".join(reversed([chr((ord(x)-15)^3) for x in target]))
-
-def save_file(datpck: dict):
+def save_file():
 	'''将数据存档'''
 	# os.getcwd()能获取当前路径
 	# .dat文件其实就是普通的文本文件换了个后缀, player.dat是游戏存档文件
@@ -42,18 +32,30 @@ def save_file(datpck: dict):
 def read_file() -> tuple:
 	'''
 	读取存档
-	返回值：统计信息与进度的元组
+	返回值：存档存的字典
 	'''
 	with open(os.getcwd()+r"\data\player.dat", "r", encoding="utf-8") as f:
-		# 解密后读得的仍是字符串，要eval一下才是真正的元组
+		# 解密后读得的仍是字符串，要eval一下才是真正的字典
 		return eval(decry(f.read()))
 
-def handle_event(datpck: dict):
+def handle_event():
 	'''监听+处理事件'''
 	for event in pygame.event.get():
 		# 监听是否按下×，按下就退出
 		if event.type == pygame.QUIT:
-			quit_game(datpck)
+			quit_game()
+		# 按键事件，移交界面处理
+		elif event.type == pygame.KEYDOWN:
+			datpck["interface"].handle_key_down(event.key)
+		elif event.type == pygame.KEYUP:
+			datpck["interface"].handle_key_down(event.key)
+		# 鼠标事件，移交界面处理
+		elif event.type == pygame.MOUSEBUTTONDOWN:
+			datpck["interface"].handle_mouse_button_down()
+		elif event.type == pygame.MOUSEBUTTONUP:
+			datpck["interface"].handle_mouse_button_up()
+		elif event.type == pygame.MOUSEMOTION:
+			datpck["interface"].handle_mouse_motion()
 
 def isFirstRun() -> bool:
 	'''
@@ -62,18 +64,12 @@ def isFirstRun() -> bool:
 	'''
 	return not os.path.exists(os.getcwd()+r'\data\firstrun')
 
-def show_start_cg(datpck: dict):
-	'''展示起始的剧情CG'''
-	'''
-	# 假如关闭游戏前存档不是在播放sCG，就更改进度
-	if datpck["progress"][:3]!="sCG":
-		datpck["progress"]="sCG:0"
-	# CG图配文，没有配文就直接用空字符串
-	cgtext=("3020年 地球...\n太阳系文明高度发达，人类都说普通话，但并不知道外星人的存在...",)
-	# CG图对象列表
-	cg_list=[]
-	# 将"sCG:n"用':'分开，倒数第一个就是要开始播放的那个图的序号
-	for i in range(int(datpck["progress"].split(":")[-1]), len(cgtext)):
-	'''
-	# 暂时先放着，下个版本再写完
-	pass
+def goto_interface_by_progress():
+	'''根据进度信息跳转界面, 父ID=界面类名'''
+	# 进度信息按冒号分隔，最后一部分是子ID，其余是父ID
+	# 父ID不知道有没有被分成几部分，所以要拼成字符串
+	super_id = "".join(datpck["progress"].split(":")[:-1])
+	sub_id = int(datpck["progress"].split(":")[-1])
+	change_datpck("interface",eval(f"{super_id}({sub_id})"))
+	change_datpck("progress",eval(f"{super_id}({sub_id})"))
+
