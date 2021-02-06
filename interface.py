@@ -299,6 +299,7 @@ class MainMenu(Interface):
 
 
 class TestRoom(Interface):
+	'''测试界面'''
 	def __init__(self,subid:int=0):
 		super().__init__(subid)
 		self.id = "TestRoom"
