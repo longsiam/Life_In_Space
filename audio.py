@@ -1,9 +1,7 @@
 # 音响（包括音乐、音效）
 # version: BETA
 
-import pygame.mixer
 from os import getcwd
-from threading import Thread
 from global_vars import *
 
 class Music:
@@ -25,26 +23,26 @@ class Music:
 	def player(self):
 		'''播放音乐的线程函数'''
 		# 设置音量、加载并播放
-		mixer.music.set_volume(self.volume)
-		mixer.music.load(self.path)
-		mixer.music.play(-1)
+		pygame.mixer.music.set_volume(self.volume)
+		pygame.mixer.music.load(self.path)
+		pygame.mixer.music.play(-1)
 		# 侦测是否要停止播放
 		while True:
 			# 如果真要停下来
 			if self.music_stop_flag:
 				# 假如没设置淡出，直接停下来
 				if self.fade_out == 0:
-					mixer.music.stop()
+					pygame.mixer.music.stop()
 				# 不然还要fadeout
 				else:
-					mixer.music.fadeout(self.fade_out)
+					pygame.mixer.music.fadeout(self.fade_out)
 				# 设置回去，便于下一次的播放
 				self.music_stop_flag = False
 				return
 
 	def play(self):
 		'''播放音乐'''
-		player=Thread(self.player)
+		player=Thread(target=self.player)
 		player.start()
 
 	def stop(self):
@@ -58,7 +56,7 @@ class Sound:
 	def __init__(self, file_name: str, volume=1):
 		self.path = getcwd()+"\\data\\"+file_name
 		self.volume = volume*datpck["setting"].volume
-		self.sound = mixer.Sound(getcwd()+'\\datas\\music\\'+path)
+		self.sound = pygame.mixer.Sound(getcwd()+'\\datas\\music\\'+path)
 
 	def play(self):
 		'''播放'''
