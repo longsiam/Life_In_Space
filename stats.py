@@ -1,7 +1,6 @@
 # 统计信息
 # version: BETA
 
-import os
 from funclib import read_file, isFirstRun
 from global_vars import *
 
@@ -25,3 +24,7 @@ class Stats:
 		返回值：长期统计信息的字典
 		'''
 		return {"exp":self.exp, "money":self.money, "hp":self.hp}
+
+	def __repr__(self):
+		'''如果被当字符串使就返回长期信息（报错用）'''
+		return repr(self.get_longterm())
