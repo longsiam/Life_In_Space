@@ -1,13 +1,9 @@
 # 背景(包括CG, 星空等，背景星星的类也包含在里面)
 # version: BETA
 
-import pygame
 from pygame.sprite import Sprite, Group
-from os import getcwd
-from random import randint, choice
 from time import sleep
 from global_vars import *
-
 
 class BackGround:
 	'''游戏背景'''
@@ -24,7 +20,6 @@ class BackGround:
 			self.image_type = "color"
 		# 不然就是图片模式
 		else:
-			print(type(image))
 			self.bg = pygame.image.load(getcwd()+"\\data\\"+image)
 			# 图片的矩形对象与它的(x,y)坐标
 			self.bg_rect = self.bg.get_rect()
@@ -202,22 +197,45 @@ class CG(BackGround):
 	def __init__(self, image: str):
 		super().__init__(image)
 		# 淡入淡出时透明度每变化一次停顿的秒数
-		self.sleep_time = datpck["setting"].fade_time / 25
+		self.sleep_time = datpck["setting"].fade_time / 51
+		# 淡出/淡入是否完成的标志
+		self.fade_in_finish = False
+		self.fade_out_finish = False
+		self.fadeout = None
+		# 先设为透明，之后再淡入
+
+
+	def fade_in_t(self):
+		'''淡入的线程函数'''
+		# 不透明度由0淡入到255，每次不透明度+5
+		self.fade_in_finish = False
+		for i in range(0,255,5):
+			self.bg.set_alpha(i)   # 设置透明度
+			sleep(self.sleep_time*3)    # 停顿
+		self.fade_in_finish = True
+
+	def fade_out_t(self):
+		'''淡出的线程函数'''
+		self.fade_out_finish = False
+		self.fadeout = pygame.Surface((datpck["setting"].screen_width,
+							datpck["setting"].screen_high)).convert()
+		self.fadeout.fill((0,0,0))
+		for i in range(0,256,5):
+			self.fadeout.set_alpha(i)
+			sleep(self.sleep_time/5)
+		self.fade_out_finish = True
 
 	def fade_in(self):
 		'''淡入'''
-		# 不透明度由0淡入到250，每次不透明度+10
-		for i in range(0,250,10):
-			self.image.set_alpha(i)   # 设置透明度
-			sleep(self.sleep_time)    # 停顿
-		# 不透明度淡入到255，图片变为不透明
-		self.image.set_alpha(255)
+		fadein = Thread(target=self.fade_in_t)
+		fadein.start()
 
 	def fade_out(self):
 		'''淡出'''
-		# 先淡出到250，便于操作
-		self.image.set_alpha(250)
-		# 倒数，由250淡入至0
-		for i in range(250,0,-10):
-			sleep(self.sleep_time)
-			self.image.set_alpha(i)
+		fadeout = Thread(target=self.fade_out_t)
+		fadeout.start()
+
+	def draw(self):
+		self.screen.blit(self.bg, self.bg_rect)
+		if self.fadeout:
+			self.screen.blit(self.fadeout, (0,0))
