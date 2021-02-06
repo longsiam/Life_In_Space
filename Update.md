@@ -99,5 +99,20 @@
 7. 加入tools.pyc
 8. 因为datpck已被公用到global_vars，因此传入的datpck参数均被删除
 
-### 2021/2/3 21:00 (Sans)
+### 2021/2/3 21:00 BETA_05 (Sans)
 1. 加入剩下的6张CG图
+
+### 2021/2/6 17:00 BETA_06 (Longs)
+1. 加入button.py
+2. 令global_vars.py导入常用的库
+3. 更新Text与CG，使其能淡入淡出
+4. 修改了剧情，完成了StartCG，现在能播放起始剧情了
+5. 加入MainMenu与TestRoom（还是空壳）
+6. 完善了firstrun判断机制
+7. 修复了亿个bug，提高了程序安全性
+8. 加入font.ttf
+
+### 2021/2/6 17:00 BETA_06 (Sans)
+1. 加入scg.mp3
+2. 加入了effects.py与Effect抽象类
+3. 加入了CG的剧情
