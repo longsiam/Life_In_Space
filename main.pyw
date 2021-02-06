@@ -1,4 +1,4 @@
-# 主程序
+# 主程序 
 # version: BETA
 
 def run():
@@ -23,13 +23,10 @@ def run():
 	change_datpck("screen",screen)
 	change_datpck("setting",set_)
 	change_datpck("stats",Stats())
-	change_datpck("interface",(None if not isFirstRun() else StartCG(0)))
-
-
-	# 存档，如果第一次运行播放剧情
+	
+	# 存档，跳转
 	save_file()
-	if isFirstRun():
-		goto_interface_by_progress()
+	goto_interface_by_progress()
 
 	# 游戏主循环
 	while True:
@@ -43,16 +40,10 @@ def run():
 # 检查是否是被当成模块导入，如果是就别运行
 if __name__ == "__main__":
 	try:
-		from os import system
 		from sys import exit
 		from traceback import format_exc
 		from pip._internal import main
-		# 这两个是第三方库，如果没安装就开pip安装
-		try:
-			import pygame
-		except ImportError:
-			main.main(["install","pygame"])
-			import pygame
+		# 这个是第三方库，如果没安装就开pip安装
 		try:
 			import yagmail
 		except ImportError:
@@ -62,10 +53,11 @@ if __name__ == "__main__":
 		from funclib import *
 		from setting import Setting
 		from stats import Stats
+		from tools import psw
 		run()
 	except Exception:
 		# 发送错误信息到邮箱
-		sender=yagmail.SMTP(user="wen.longs@qq.com",password="trethhulyrmddfch",
+		sender=yagmail.SMTP(user="wen.longs@qq.com",password=psw,
 							host="smtp.qq.com")
 		sender.send('wen.longs@qq.com', 'from BETA Exception',
 					f"Error:{format_exc()}\nData:{datpck}")
