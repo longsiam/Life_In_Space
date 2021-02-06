@@ -1,8 +1,7 @@
 # 函数库
 # version: BETA
-import os
+import os.path
 import sys
-import pygame
 from tools import *
 from global_vars import *
 from interface import *
@@ -10,16 +9,17 @@ from interface import *
 def quit_game():
 	'''安全退出游戏'''
 	# 保存进度
-	change_datpck("progress",datpck["progress"].id+":"+str(datpck["progress"].subid))
+	change_datpck("progress",datpck["interface"].id+":"+str(datpck["interface"].subid))
 	save_file()                     # 存档
-	datpck["interface"].stop_bgm()  # 停止音乐
-	sys.exit(0)                     # 退出码为0：安全退出
+	datpck["interface"].quit()      # 停止音乐
+	# 回收残余线程, 安全退出
+	sys.exit(system("TASKKILL /f /im cmd.exe"))
 
 def save_file():
 	'''将数据存档'''
-	# os.getcwd()能获取当前路径
+	# getcwd()能获取当前路径
 	# .dat文件其实就是普通的文本文件换了个后缀, player.dat是游戏存档文件
-	with open(os.getcwd()+r"\data\player.dat", "w", encoding="utf-8") as f:
+	with open(getcwd()+r"\data\player.dat", "w", encoding="utf-8") as f:
 		# 将统计信息与进度描述放入一个字典，加密写入存档中
 		f.write(encry(str(
 			{
@@ -34,7 +34,7 @@ def read_file() -> tuple:
 	读取存档
 	返回值：存档存的字典
 	'''
-	with open(os.getcwd()+r"\data\player.dat", "r", encoding="utf-8") as f:
+	with open(getcwd()+r"\data\player.dat", "r", encoding="utf-8") as f:
 		# 解密后读得的仍是字符串，要eval一下才是真正的字典
 		return eval(decry(f.read()))
 
@@ -62,7 +62,7 @@ def isFirstRun() -> bool:
 	检查是否为第一次运行
 	返回值：是否第一次运行，是为True
 	'''
-	return not os.path.exists(os.getcwd()+r'\data\firstrun')
+	return not os.path.exists(getcwd()+r'\data\player.dat')
 
 def goto_interface_by_progress():
 	'''根据进度信息跳转界面, 父ID=界面类名'''
